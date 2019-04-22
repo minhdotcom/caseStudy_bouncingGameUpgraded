@@ -1,33 +1,39 @@
-var context = canvas.getContext("2d"),
-    interval;
-LOG = console.log;
+var context = document.getElementById("canvas").getContext("2d"),
+    interval,
+    borderY1 = new Border(0, 0, 10, HELP_BORDER_Y, "#ffd700"),
+    borderY2 = new Border(0, CANVAS_WIDTH - 10, 10, HELP_BORDER_Y, "#ffd700"),
+    borderY3 = new Border(0, CANVAS_HEIGHT - HELP_BORDER_Y, 10, HELP_BORDER_Y, "#ffd700"),
+    borderY4 = new Border(CANVAS_WIDTH - 10, CANVAS_HEIGHT - HELP_BORDER_Y, 10, HELP_BORDER_Y, "#ffd700"),
 
-var barX = new Bar (CANVAS_WIDTH / 2 - BAR_WIDTH / 2, CANVAS_HEIGHT - BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT, "0000ff", BAR_SPEED),
-    barY = new Bar (CANVAS_WIDTH / 2 - BAR_WIDTH / 2, CANVAS_HEIGHT - BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT, "0000ff", BAR_SPEED);
+    tempBarX = 0,
+    tempBallX = 0,
+    barAcceleration,
+    barX = new Bar (BARX_POSITION_X, BARX_POSITION_Y, BAR_WIDTH, BAR_HEIGHT, BAR_COLOR, BAR_SPEED_X, "horizon"),
+    barX2 = new Bar (BARX_POSITION_X, 0, BAR_WIDTH, BAR_HEIGHT, BAR_COLOR, BAR_SPEED_X, "horizon");
+    barY = new Bar (0, BARY_POSITION_Y, 10, 100, BAR_COLOR, BAR_SPEED_Y, "vertical"),
+    barY2 = new Bar (CANVAS_WIDTH - 10, BARY_POSITION_Y, 10, 100, BAR_COLOR, BAR_SPEED_Y, "vertical");
 
-var tempBarX = 0,
-    tempBallX = 0;
+borderY1.draw();
+borderY2.draw();
+borderY3.draw();
+borderY4.draw();
 
 barX.setBarKeyBoard();
+barX2.setBarKeyBoard();
+barY.setBarKeyBoard();
+barY2.setBarKeyBoard();
 
 function change_ball_angle (bar) {
-
-    if (bar.x == tempBarX) bar.accelaration = 0; else bar.accelaration ++;
-    if (bar.accelaration > BAR_ACCELERATION_MAX) {bar.accelaration = BAR_ACCELERATION_MAX;}
-
-    if (ball.bottomEdge >= bar.y && ball.leftEdge >= bar.leftEdge && ball.rightEdge <= bar.rightEdge) {
-        if(((bar.x - tempBarX) / (ball.x - tempBallX)) > 0) {
-            ball.moveAngle -= bar.accelaration / (100 - BALL_ANGLE_SENSITIVE);
+    if (bar.x === tempBarX) barAcceleration = 0; else barAcceleration ++;
+    if (ball.leftEdge >= bar.leftEdge && ball.rightEdge <= bar.rightEdge && ball.bottomEdge >= bar.y) {
+        if((bar.x - tempBarX) / (ball.x - tempBallX) > 0) {
+            ball.moveAngle -= barAcceleration / (100 - BALL_ANGLE_SENSITIVE);
         } else {
-            ball.moveAngle += bar.accelaration / (100 - BALL_ANGLE_SENSITIVE);
+            ball.moveAngle += barAcceleration / (100 - BALL_ANGLE_SENSITIVE);
         }
-        // ball.moveAngle = -1000;
-        if (ball.moveAngle < -0.9) {
-            ball.moveAngle = -0.9;
-        }
+        if (ball.moveAngle < -0.8) {ball.moveAngle = -0.8;}
         ball.updateMoveAngle();
     }
-
     tempBarX = bar.x;
     tempBallX = ball.x;
 }
@@ -35,8 +41,11 @@ function change_ball_angle (bar) {
 function init_game () {
     interval = setInterval(function () {
         change_ball_angle(barX);
-        ball.move(barX.x, barX.x + barX.width);
+        ball.move(barX.leftEdge, barX.rightEdge);
         barX.move();
+        barX2.move();
+        barY.move();
+        barY2.move();
         for (let i = 0; i < bricks.length; i++) {
             bricks[i].draw();
         }
