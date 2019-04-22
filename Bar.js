@@ -1,14 +1,16 @@
-var bar = new function () {
-    this.color = "#0000ff";
-    this.height = BAR_HEIGHT;
-    this.x = CANVAS_WIDTH / 2 - BAR_WIDTH / 2;
-    this.y = CANVAS_HEIGHT - this.height;
-    this.width = BAR_WIDTH;
-    this.speed = BAR_SPEED;
+function Bar (x, y, width, height, color, speed) {
+    this.color = color;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.speed = speed;
     this.accelaration = 0;
 
-    this.leftEdge = this.x;
-    this.rightEdge = this.x + this.width;
+    this.updateThis = function () {
+        this.leftEdge = this.x;
+        this.rightEdge = this.x + this.width;
+    }
 
     this.draw = function () {
         context.beginPath();
@@ -20,9 +22,9 @@ var bar = new function () {
 
     let moveX = 0;
 
-
     this.move = function () {
         this.x += moveX;
+        this.updateThis();
         this.draw();
     }
 
@@ -58,3 +60,8 @@ var bar = new function () {
         }
     }
 }
+
+
+// var bar = new function () {
+//
+// }

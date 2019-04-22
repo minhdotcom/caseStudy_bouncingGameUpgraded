@@ -15,6 +15,13 @@ var ball = new function () {
         this.bottomEdge = this.y + this.radius;
     }
 
+    let moveX = this.speed;
+    let moveY = moveX * (1 + this.moveAngle);
+
+    this.updateMoveAngle = function () {
+        moveY = moveY / Math.abs(moveY) * Math.abs(moveX * (1 + this.moveAngle));
+    }
+
     this.draw = function () {
         context.clearRect(0,0, CANVAS_WIDTH, CANVAS_HEIGHT);
         context.beginPath();
@@ -24,26 +31,16 @@ var ball = new function () {
         context.fill();
     }
 
-    let moveX = this.speed;
-    let moveY = moveX * (1 + this.moveAngle);;
 
-    this.updateMovingAngle = function () {
-        moveY = moveY / Math.abs(moveY) * Math.abs(moveX) * (1 + this.moveAngle);
-    }
 
     this.moveRules = function (leftBarEdge, rightBarEdge) {
         if (this.bottomEdge > CANVAS_HEIGHT && (this.leftEdge < leftBarEdge || this.rightEdge > rightBarEdge)) {
             // clearInterval(interval);
             // alert("Game over!");
-            this.x = CANVAS_WIDTH / 2;
-            this.y = CANVAS_HEIGHT - 20;
-            this.moveAngle = Math.random();
-            this.speed = BALL_SPEED;
-            bar.x = CANVAS_WIDTH / 2 - BAR_WIDTH / 2;
-
+            moveY = - moveY;
         }
         if ((this.topEdge <= 0) ||
-            (this.bottomEdge >= bar.y) && (this.leftEdge >= leftBarEdge && this.leftEdge<= rightBarEdge)) {
+            (this.bottomEdge >= CANVAS_HEIGHT - BAR_HEIGHT) && (this.leftEdge >= leftBarEdge && this.leftEdge<= rightBarEdge)) {
             moveY = - moveY;
         }
         if (this.leftEdge <= 0 || this.rightEdge >= CANVAS_WIDTH) {
@@ -68,7 +65,6 @@ var ball = new function () {
     }
 
     this.move = function (leftBarEdge, rightBarEdge) {
-        this.updateMovingAngle();
         this.moveRules(leftBarEdge, rightBarEdge);
         this.x -= moveX;
         this.y -= moveY;
