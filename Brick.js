@@ -35,3 +35,19 @@ for (let i = 1; i <= BRICK_ROW; i++) {
     }
     brickY += 20;
 }
+
+function Border (x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.draw = function () {
+        console.log(1);
+        context.beginPath();
+        context.fillStyle = this.color;
+        context.rect(this.x, this.y, this.width, this.height);
+        context.closePath();
+        context.fill();
+    }
+}

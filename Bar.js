@@ -84,6 +84,3 @@ function Bar (x, y, width, height, color, speed, type) {
 }
 
 
-// var bar = new function () {
-//
-// }
