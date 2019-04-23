@@ -1,5 +1,7 @@
 var context = document.getElementById("canvas").getContext("2d"),
     interval,
+    startScore = bricks.length,
+    score,
     tempBarX = 0,
     tempBallX = 0,
     tempBricksLength = 0,
@@ -54,8 +56,13 @@ function increase_ball_speed () {
     tempBricksLength = bricks.length;
 }
 
+function calculate_score () {
+    score = startScore - bricks.length;
+}
+
 function init_game () {
     interval = setInterval(function () {
+        checkWin();
         change_ball_angle(barX);
         ball.move(barX.leftEdge, barX.rightEdge, barY.topEdge, barY.bottomEdge);
         barX.move();
@@ -65,10 +72,28 @@ function init_game () {
         for (let i = 0; i < bricks.length; i++) {
             bricks[i].draw();
         }
+        context.drawImage(document.getElementById("codegym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
         redraw_borders();
         increase_ball_speed();
+        console.log(score);
     }, 100 - GAME_SPEED);
 }
 
+function checkWin () {
+    if ((ball.x >= CANVAS_WIDTH / 2 - 75) &&
+        (ball.x <= CANVAS_WIDTH / 2 + 75) &&
+        (ball.y >= CANVAS_HEIGHT / 2 - 23) &&
+        (ball.y <= CANVAS_HEIGHT / 2 + 23)) {
+        clearInterval(interval);
+        alert("You win!");
+    }
+}
+bricks.splice(69,5);
+bricks.splice(75,5);
+
+
 init_game();
 
+
+context.beginPath();
+context.closePath();

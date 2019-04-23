@@ -19,6 +19,8 @@ function Brick (x,y,width,height,color) {
     }
 }
 
+
+
 var bricks = [],
     brick,
     brickX = BRICK_X_ALIGN,
