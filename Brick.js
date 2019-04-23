@@ -29,25 +29,10 @@ var bricks = [],
 for (let i = 1; i <= BRICK_ROW; i++) {
     brickX = BRICK_X_ALIGN;
     for (let j = 1; j <= BRICK_COLUMN; j++) {
+
         brick = new Brick(brickX, brickY, brickWidth, brickHeight, "#d3d3d3", 0);
         bricks.push(brick);
         brickX += brickWidth + 10;
     }
     brickY += 20;
-}
-
-function Border (x, y, width, height, color) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
-    this.draw = function () {
-        console.log(1);
-        context.beginPath();
-        context.fillStyle = this.color;
-        context.rect(this.x, this.y, this.width, this.height);
-        context.closePath();
-        context.fill();
-    }
 }

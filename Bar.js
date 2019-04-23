@@ -10,6 +10,8 @@ function Bar (x, y, width, height, color, speed, type) {
     this.updateThis = function () {
         this.leftEdge = this.x;
         this.rightEdge = this.x + this.width;
+        this.topEdge = this.y;
+        this.bottomEdge = this.y + this.height;
     };
 
     this.draw = function () {
@@ -38,36 +40,36 @@ function Bar (x, y, width, height, color, speed, type) {
             let keyCode = event.which;
             switch (keyCode) {
                 case 37:
-                    if (that.x <= 0) {
+                    if (that.leftEdge <= HELP_BORDER_X) {
                         moveX = 0;
-                    } else if (that.x <= Math.min(BAR_BREAK_X, CANVAS_WIDTH / 5)) {
-                        moveX = - that.speed * that.x / Math.min(BAR_BREAK_X, CANVAS_WIDTH / 5);
+                    } else if (that.leftEdge <= Math.min(BAR_BREAK_X + HELP_BORDER_X, CANVAS_WIDTH / 5 + HELP_BORDER_X)) {
+                        moveX = - that.speed * that.x / Math.min(BAR_BREAK_X + HELP_BORDER_X, CANVAS_WIDTH / 5 + HELP_BORDER_X);
                     }else {
                         moveX = - that.speed;
                     }
                     break;
                 case 39:
-                    if (that.x + that.width >= CANVAS_WIDTH) {
+                    if (that.rightEdge >= CANVAS_WIDTH - HELP_BORDER_X) {
                         moveX = 0;
-                    } else if (that.x + that.width >= Math.max(CANVAS_WIDTH - BAR_BREAK_X, CANVAS_WIDTH * 4 / 5)) {
-                        moveX = that.speed * (CANVAS_WIDTH - (that.x + that.width)) / Math.min(BAR_BREAK_X, CANVAS_WIDTH / 5);
+                    } else if (that.rightEdge >= Math.max(CANVAS_WIDTH - BAR_BREAK_X - HELP_BORDER_X, CANVAS_WIDTH * 4 / 5 - HELP_BORDER_X)) {
+                        moveX = that.speed * (CANVAS_WIDTH - HELP_BORDER_X - (that.x + that.width)) / Math.min(BAR_BREAK_X, CANVAS_WIDTH / 5);
                     } else {
                         moveX = + that.speed;
                     }
                     break;
                 case 38:
-                    if (that.y <= HELP_BORDER_Y) {
+                    if (that.topEdge <= HELP_BORDER_Y) {
                         moveY = 0;
-                    } else if (that.y <= Math.max(BAR_BREAK_Y + HELP_BORDER_Y, CANVAS_HEIGHT / 5 + HELP_BORDER_Y)) {
+                    } else if (that.topEdge <= Math.max(BAR_BREAK_Y + HELP_BORDER_Y, CANVAS_HEIGHT / 5 + HELP_BORDER_Y)) {
                         moveY = - that.speed * that.y / Math.min(BAR_BREAK_Y + HELP_BORDER_Y, CANVAS_HEIGHT / 5 + HELP_BORDER_Y);
                     } else {
                         moveY = - that.speed;
                     }
                     break;
                 case 40:
-                    if (that.y + that.height >= CANVAS_HEIGHT - HELP_BORDER_Y) {
+                    if (that.bottomEdge >= CANVAS_HEIGHT - HELP_BORDER_Y) {
                         moveY = 0;
-                    } else if (that.y + that.height >= Math.max(CANVAS_HEIGHT - BAR_BREAK_Y - HELP_BORDER_Y, CANVAS_HEIGHT * 4 / 5 - HELP_BORDER_Y)) {
+                    } else if (that.bottomEdge >= Math.max(CANVAS_HEIGHT - BAR_BREAK_Y - HELP_BORDER_Y, CANVAS_HEIGHT * 4 / 5 - HELP_BORDER_Y)) {
                         moveY = that.speed * (CANVAS_HEIGHT - HELP_BORDER_Y - (that.y + that.height)) / Math.min(BAR_BREAK_Y, CANVAS_HEIGHT / 5);
                     } else {
                         moveY = + that.speed;

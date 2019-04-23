@@ -6,7 +6,7 @@ var ball = new function () {
     this.endAngle = Math.PI * 2;
     this.color = BALL_COLOR;
     this.speed = BALL_SPEED;
-    this.moveAngle = Math.random();
+    this.moveAngle = 0;//Math.random();
 
     this.updatePosition = function () {
         this.leftEdge = this.x - this.radius;
@@ -51,40 +51,70 @@ var ball = new function () {
     };
 
     this.topCanvasRules = function (horizBarLeft, horizBarRight) {
-        if ((this.topEdge < 0) &&
-            (this.leftEdge < horizBarLeft || this.rightEdge > horizBarRight)) {
-            // clearInterval(interval);
-            // alert("Game over!");
-            moveY = - moveY;
+        if ((this.topEdge <= HELP_THICKNESS) &&
+            (this.leftEdge <= HELP_BORDER_X || this.rightEdge >= CANVAS_WIDTH - HELP_BORDER_X)) {
+            moveY = - Math.abs(moveY);
         }
         if ((this.topEdge <= BAR_HEIGHT) &&
             (this.leftEdge >= horizBarLeft && this.rightEdge <= horizBarRight)) {
-            moveY = - moveY;
+            moveY = - Math.abs(moveY);
+        }
+        if ((this.topEdge < 0) &&
+            (this.leftEdge < horizBarLeft || this.rightEdge > horizBarRight)) {
+            clearInterval(interval);
+            alert("Game over!");
+            // moveY = - moveY;
         }
     };
 
     this.bottomCanvasRules = function (horizBarLeft, horizBarRight) {
-        if ((this.bottomEdge > CANVAS_HEIGHT) &&
-            (this.leftEdge < horizBarLeft || this.rightEdge > horizBarRight)) {
-            // clearInterval(interval);
-            // alert("Game over!");
-            moveY = - moveY;
+        if ((this.bottomEdge >= CANVAS_HEIGHT - HELP_THICKNESS) &&
+            (this.leftEdge <= HELP_BORDER_X || this.rightEdge >= CANVAS_WIDTH - HELP_BORDER_X)) {
+            moveY = Math.abs(moveY);
         }
         if ((this.bottomEdge >= CANVAS_HEIGHT - BAR_HEIGHT) &&
             (this.leftEdge >= horizBarLeft && this.rightEdge <= horizBarRight)) {
-            moveY = - moveY;
+            moveY = Math.abs(moveY);
+        }
+        if ((this.bottomEdge > CANVAS_HEIGHT) &&
+            (this.leftEdge < horizBarLeft || this.rightEdge > horizBarRight)) {
+            clearInterval(interval);
+            alert("Game over!");
+            // moveY = - moveY;
         }
     };
 
     this.leftCanvasRules = function (vertiBarTop, vertiBarBottom) {
-        if (this.leftEdge <= 0) {
-            moveX = - moveX;
+        if ((this.leftEdge <= HELP_THICKNESS) &&
+            (this.bottomEdge <= HELP_BORDER_Y || this.topEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
+            moveX = - Math.abs(moveX);
+        }
+        if ((this.leftEdge <= BAR_THICKNESS) &&
+            (this.topEdge >= vertiBarTop && this.bottomEdge <= vertiBarBottom)) {
+            moveX = - Math.abs(moveX);
+        }
+        if ((this.leftEdge <= 0) &&
+            (this.topEdge < vertiBarTop || this.bottomEdge > vertiBarBottom)) {
+            clearInterval(interval);
+            alert("Game over!");
+            // moveY = - moveY;
         }
     };
 
     this.rightCanvasRules = function (vertiBarTop, vertiBarBottom) {
-        if (this.rightEdge >= CANVAS_WIDTH) {
-            moveX = - moveX;
+        if ((this.rightEdge >= CANVAS_WIDTH - HELP_THICKNESS) &&
+            (this.bottomEdge <= HELP_BORDER_Y || this.topEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
+            moveX = Math.abs(moveX);
+        }
+        if ((this.rightEdge >= CANVAS_WIDTH - BAR_THICKNESS) &&
+            (this.topEdge >= vertiBarTop && this.bottomEdge <= vertiBarBottom)) {
+            moveX = Math.abs(moveX);
+        }
+        if ((this.rightEdge >= CANVAS_WIDTH) &&
+            (this.topEdge < vertiBarTop || this.bottomEdge > vertiBarBottom)) {
+            clearInterval(interval);
+            alert("Game over!");
+            // moveY = - moveY;
         }
     };
 
