@@ -88,8 +88,8 @@ function checkWin () {
         alert("You win!");
     }
 }
-bricks.splice(69,5);
-bricks.splice(75,5);
+// bricks.splice(69,5);
+// bricks.splice(75,5);
 
 
 init_game();

@@ -6,7 +6,7 @@ var ball = new function () {
     this.endAngle = Math.PI * 2;
     this.color = BALL_COLOR;
     this.speed = BALL_SPEED;
-    this.moveAngle = 0;//Math.random();
+    this.moveAngle = Math.random();
 
     this.updatePosition = function () {
         this.leftEdge = this.x - this.radius;
