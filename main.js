@@ -1,6 +1,6 @@
 var context = document.getElementById("canvas").getContext("2d"),
     interval,
-    startScore = bricks.length,
+    startScore = bricks.length - 5,
     score,
     tempBarX = 0,
     tempBallX = 0,
@@ -100,9 +100,24 @@ function checkWin () {
 bricks.splice(64,2);
 bricks.splice(72,2);
 
+function before_start () {
+    barX.move();
+    barX2.move();
+    barY.move();
+    barY2.move();
+    for (let i = 0; i < bricks.length; i++) {
+        bricks[i].draw();
+    }
+    context.drawImage(document.getElementById("codeGym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
+    redraw_borders();
+    context.font = "bold 25px Arial";
+    context.fillStyle = "#4682b4";
+    context.fillText("Make the ball hit CODEGYM to win", 120, 50);
+    setTimeout(function () {
+        context.font = "bold 50px Arial";
+        context.fillText("GO", 280, 100);
+    }, 2000)
+}
 
-init_game();
-
-
-context.beginPath();
-context.closePath();
+before_start();
+setTimeout(init_game, 3000);
