@@ -1,4 +1,5 @@
 var context = document.getElementById("canvas").getContext("2d"),
+    codeGymImg = document.getElementById("codeGym"),
     interval,
     startScore = bricks.length - 5,
     score,
@@ -79,7 +80,7 @@ function init_game () {
         for (let i = 0; i < bricks.length; i++) {
             bricks[i].draw();
         }
-        context.drawImage(document.getElementById("codeGym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
+        context.drawImage(codeGymImg,CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
         redraw_borders();
         increase_ball_speed();
         calculate_score();
@@ -108,7 +109,7 @@ function before_start () {
     for (let i = 0; i < bricks.length; i++) {
         bricks[i].draw();
     }
-    context.drawImage(document.getElementById("codeGym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
+    context.drawImage(codeGymImg,CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
     redraw_borders();
     context.font = "bold 25px Arial";
     context.fillStyle = "#4682b4";
