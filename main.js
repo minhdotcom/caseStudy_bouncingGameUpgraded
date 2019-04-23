@@ -62,7 +62,7 @@ function calculate_score () {
 }
 
 function drawScore() {
-    context.font = "50px Arial";
+    context.font = "bold 50px Arial";
     context.fillStyle = "#4682b4";
     context.fillText(score, 295, 300);
 }
