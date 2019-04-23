@@ -86,7 +86,7 @@ var ball = new function () {
 
     this.leftCanvasRules = function (vertiBarTop, vertiBarBottom) {
         if ((this.leftEdge <= HELP_THICKNESS) &&
-            (this.bottomEdge <= HELP_BORDER_Y || this.topEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
+            (this.topEdge <= HELP_BORDER_Y || this.bottomEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
             moveX = - Math.abs(moveX);
         }
         if ((this.leftEdge <= BAR_THICKNESS) &&
@@ -103,7 +103,7 @@ var ball = new function () {
 
     this.rightCanvasRules = function (vertiBarTop, vertiBarBottom) {
         if ((this.rightEdge >= CANVAS_WIDTH - HELP_THICKNESS) &&
-            (this.bottomEdge <= HELP_BORDER_Y || this.topEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
+            (this.topEdge <= HELP_BORDER_Y || this.bottomEdge >= CANVAS_HEIGHT - HELP_BORDER_Y)) {
             moveX = Math.abs(moveX);
         }
         if ((this.rightEdge >= CANVAS_WIDTH - BAR_THICKNESS) &&
