@@ -58,6 +58,13 @@ function increase_ball_speed () {
 
 function calculate_score () {
     score = startScore - bricks.length;
+    score = (parseInt(score, 10) + 101).toString().substr(1)
+}
+
+function drawScore() {
+    context.font = "50px Arial";
+    context.fillStyle = "#4682b4";
+    context.fillText(score, 295, 300);
 }
 
 function init_game () {
@@ -72,10 +79,12 @@ function init_game () {
         for (let i = 0; i < bricks.length; i++) {
             bricks[i].draw();
         }
-        context.drawImage(document.getElementById("codegym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
+        context.drawImage(document.getElementById("codeGym"),CANVAS_WIDTH / 2 - 75,CANVAS_HEIGHT / 2 - 23, 150, 45);
         redraw_borders();
         increase_ball_speed();
+        calculate_score();
         console.log(score);
+        drawScore();
     }, 100 - GAME_SPEED);
 }
 
@@ -85,11 +94,11 @@ function checkWin () {
         (ball.y >= CANVAS_HEIGHT / 2 - 23) &&
         (ball.y <= CANVAS_HEIGHT / 2 + 23)) {
         clearInterval(interval);
-        alert("You win!");
+        alert("Congratulation! You won. High score: " + score );
     }
 }
-// bricks.splice(69,5);
-// bricks.splice(75,5);
+bricks.splice(64,2);
+bricks.splice(72,2);
 
 
 init_game();
